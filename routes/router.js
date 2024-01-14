@@ -1,4 +1,5 @@
 import express from 'express';
-import userRoutes from '../routes/userRoutes.js';
+import userRoutes from './user.routes.js';
+import auth from './auth.routes.js';
 
-export default [userRoutes]
+export default [userRoutes, auth]

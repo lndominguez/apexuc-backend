@@ -1,24 +1,26 @@
 import express from 'express';
-import mongoose from 'mongoose';
-import userRoutes from './routes/router.js';
+import routes from './routes/router.js';
 import dotenv from 'dotenv';
 import cors from 'cors';
+import { connectDB } from './db.js';
 
 // Cargar variables de entorno desde el archivo .env
 dotenv.config();
 
 const app = express();
 
-app.use(cors());
+app.use(cors(
+  {
+    origin: 'http://localhost:3030'
+  }
+));
 
 const port = process.env.PORT || 4007; // Usa el puerto especificado en .env o 4000 por defecto
 // Configuración de middleware, rutas, etc.
-app.use('/api', userRoutes);
+app.use('/api', routes);
 
-
-// Conexión a la base de datos
-mongoose.connect(process.env.MONGODB_URI);
-
+// Conectar a la base de datos
+connectDB();
 
 // Iniciar el servidor en el puerto configurado
 app.listen(port, () => {
