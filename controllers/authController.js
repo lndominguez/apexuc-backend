@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 import User from '../models/userModel.js';
-import bcrypt from 'bcrypt';
+import bcryptjs from 'bcryptjs';
 
 
 
@@ -14,7 +14,7 @@ async function register(req, res) {
 
         if (userFound) return res.status(401).json({message: 'This email has been taken'})
 
-        const hashedPassword = await bcrypt.hash(password, 10);
+        const hashedPassword = await bcryptjs.hash(password, 10);
 
         const newUser = new User({
             firstName,
@@ -49,7 +49,7 @@ async function login(req, res) {
     const { email, password } = req.body;
     const user = await User.findOne({ email });
 
-    if (user && await bcrypt.compare(password, user.password)) {
+    if (user && await bcryptjs.compare(password, user.password)) {
         const token = jwt.sign({ email }, 'secreto', { expiresIn: '1h' });
         return res.json({
             accessToken: token, user: {
