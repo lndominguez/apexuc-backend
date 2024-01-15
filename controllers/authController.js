@@ -12,7 +12,7 @@ async function register(req, res) {
 
         const userFound = await User.findOne({ email })
 
-        if (userFound) return res.status(400).json(['This email has been taken'])
+        if (userFound) return res.status(401).json({message: 'This email has been taken'})
 
         const hashedPassword = await bcrypt.hash(password, 10);
 
