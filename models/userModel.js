@@ -2,6 +2,9 @@
 import mongoose from 'mongoose';
 
 const userSchema = new mongoose.Schema({
+  id: {
+    type: String
+  },
   firstName: {
     type: String,
     required: true
@@ -17,9 +20,14 @@ const userSchema = new mongoose.Schema({
   },
   password: {
     type: String,
-    required: true,
+    required: false,
     unique: true
+  },
+  profilePicture:{
+    type: String,
+    required: false
   }
+
   // Otros campos según sea necesario
 }, {
   timestamps: true
