@@ -1,5 +1,5 @@
 // userService.js
-import User from '../models/userModel.js';
+import User from "../models/userModel.js";
 
 // Obtener todos los usuarios
 const getAllUsers = async () => {
@@ -15,7 +15,7 @@ const getUserById = async (userId) => {
   try {
     const user = await User.findById(userId);
     if (!user) {
-      throw new Error('Usuario no encontrado');
+      throw new Error("Usuario no encontrado");
     }
     return user;
   } catch (error) {
@@ -39,7 +39,7 @@ const updateUserById = async (userId, userData) => {
   try {
     const user = await User.findByIdAndUpdate(userId, userData, { new: true });
     if (!user) {
-      throw new Error('Usuario no encontrado');
+      throw new Error("Usuario no encontrado");
     }
     return user;
   } catch (error) {
@@ -52,9 +52,20 @@ const deleteUserById = async (userId) => {
   try {
     const user = await User.findByIdAndDelete(userId);
     if (!user) {
-      throw new Error('Usuario no encontrado');
+      throw new Error("Usuario no encontrado");
     }
-    return { message: 'Usuario eliminado exitosamente' };
+    return { message: "Usuario eliminado exitosamente" };
+  } catch (error) {
+    throw new Error(`Error al eliminar usuario por ID: ${error.message}`);
+  }
+};
+const deleteUsers = async (listId) => {
+  try {
+    listId.map(async (id) => {
+      await User.findByIdAndDelete(id);
+    });
+
+    return { message: "Usuario eliminado exitosamente" };
   } catch (error) {
     throw new Error(`Error al eliminar usuario por ID: ${error.message}`);
   }
@@ -64,6 +75,7 @@ export {
   getAllUsers,
   getUserById,
   createUser,
+  deleteUsers,
   updateUserById,
-  deleteUserById
+  deleteUserById,
 };

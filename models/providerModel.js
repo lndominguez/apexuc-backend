@@ -5,29 +5,21 @@ const userSchema = new mongoose.Schema({
   id: {
     type: String
   },
-  firstName: {
-    type: String,
-    required: true
-  },
-  lastName: {
+  fullName: {
     type: String,
     required: true
   },
   email: {
     type: String,
-    required: true,
+    required: false,
     unique: true
   },
-  phoneNumber: {
-    type: String,
-    required: false,
-  },
-  password: {
-    type: String,
-    required: true,
-  },
   avatarUrl:{
-    type: Object,
+    type: String,
+    required: false
+  },
+  active:{
+    type: Boolean,
     required: false
   },
   country:{
@@ -47,28 +39,19 @@ const userSchema = new mongoose.Schema({
     required: false
   },
   zipCode:{
-    type: Number,
-    required: false
-  },
-  isVerified:{
-    type: Boolean,
-    required: false
-  },
-  role:{
     type: String,
     required: false
   },
-  status:{
+  airlines:{
     type: String,
     required: false
   }
   
-
   // Otros campos según sea necesario
 }, {
   timestamps: true
 });
 
-const User = mongoose.model('User', userSchema);
+const Provider = mongoose.model('Provider', userSchema);
 
-export default User;
+export default Provider;

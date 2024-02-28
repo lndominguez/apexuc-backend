@@ -12,7 +12,7 @@ export const connectDB = async () => {
         // Conexión a la base de datos
         await mongoose.connect(process.env.MONGODB_URI);
 
-        console.log("<<< mongoDB is connected >>>")
+        console.log("mongoDB is connected")
 
     } catch (error) {
 
